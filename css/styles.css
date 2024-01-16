@@ -1,0 +1,38 @@
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  min-width: 1440px;
+  padding: 24px 156px;
+}
+
+.gallery {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+.gallery-image {
+  width: 360px;
+  height: 200px;
+  flex-shrink: 0;
+}
+
+.basicLightbox {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  background: rgba(46, 47, 66, 0.8);
+  padding: 28px 164px;
+}
