@@ -76,23 +76,27 @@ function onGalleryItemClick(event) {
 
   const originalImageURL = clickedElement.dataset.source;
 
-  lightbox = basicLightbox.create(`
+  lightbox = basicLightbox.create(
+    `
     <img src="${originalImageURL}" width="1112" height="640" alt="${clickedElement.alt}" />
-  `);
+  `,
+    {
+      onShow: () => {
+        document.addEventListener("keydown", closeModalOnEsc);
+      },
+      onClose: () => {
+        document.removeEventListener("keydown", closeModalOnEsc);
+      },
+    }
+  );
   lightbox.show();
-
-  const lightboxElement = document.querySelector(".basicLightbox__placeholder");
-  lightboxElement.style.zIndex = "9999";
 }
 
 function closeModalOnEsc(event) {
   if (event.key === "Escape" && lightbox) {
     lightbox.close();
-    document.removeEventListener("keydown", closeModalOnEsc);
   }
 }
 
 const galleryContainer = document.querySelector(".gallery");
 galleryContainer.addEventListener("click", onGalleryItemClick);
-
-document.addEventListener("keydown", closeModalOnEsc);
