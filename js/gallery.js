@@ -64,7 +64,7 @@ const images = [
   },
 ];
 
-let lightbox; // Добавьте переменную для хранения объекта lightbox
+let lightbox;
 
 function onGalleryItemClick(event) {
   event.preventDefault();
@@ -76,22 +76,23 @@ function onGalleryItemClick(event) {
 
   const originalImageURL = clickedElement.dataset.source;
 
-  lightbox = basicLightbox.create(
-    `<img src="${originalImageURL}" width="1112" height="640" alt="" />`
-  );
+  lightbox = basicLightbox.create(`
+    <img src="${originalImageURL}" width="1112" height="640" alt="${clickedElement.alt}" />
+  `);
   lightbox.show();
 
-  const lightboxElement = document.querySelector(".basicLightbox");
-  lightboxElement.computedStyleMap.zIndex = "9999";
+  const lightboxElement = document.querySelector(".basicLightbox__placeholder");
+  lightboxElement.style.zIndex = "9999";
 }
 
 function closeModalOnEsc(event) {
   if (event.key === "Escape" && lightbox) {
-    lightbox.close(); // Используйте метод close() объекта lightbox
+    lightbox.close();
+    document.removeEventListener("keydown", closeModalOnEsc);
   }
 }
 
-document.addEventListener("keydown", closeModalOnEsc);
-
 const galleryContainer = document.querySelector(".gallery");
 galleryContainer.addEventListener("click", onGalleryItemClick);
+
+document.addEventListener("keydown", closeModalOnEsc);
